@@ -4,7 +4,9 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -109,12 +111,17 @@ public abstract class BaseRedisServiceImpl<T> {
     }
 
     /**
-     * 根据key 获取过期时间
+     * 判断value是否在redis中
      *
-     * @param key 键 不能为null
-     * @return 时间(秒) 返回0代表为永久有效
+     * @return 返回存在得key，没有返回null
      */
-    public Long getExpire(String key) {
-        return redisTemplate.getExpire(key, TimeUnit.SECONDS);
+    public String isValueExist(T val) {
+        Set<String> keys = getKeys();
+        Map<T, String> map = new HashMap<>();
+        for (String key : keys) {
+            T value = get(key);
+            map.put(value, key);
+        }
+        return map.getOrDefault(val, null);
     }
 }

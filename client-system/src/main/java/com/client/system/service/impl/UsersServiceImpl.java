@@ -62,12 +62,17 @@ public class UsersServiceImpl extends BaseRedisServiceImpl<String> implements Us
                 if (user.getStatus().equals("1")) return EliApiResult.fail(EliApiCode.USER_ACCOUNT_FORBIDDEN);
                 UsersVo usersVo = new UsersVo();
                 BeanUtils.copyProperties(user, usersVo);
-                String uuid = UUID.randomUUID().toString();
-                put(uuid, usersVo.getUserId(), 1800L);
-                System.out.println("登录用户id---------->" + get(uuid));
+                String exist = isValueExist(user.getUserId());
+                if (exist == null) {
+                    String uuid = UUID.randomUUID().toString();
+                    put(uuid, usersVo.getUserId(), 1800L);
+                    usersVo.setToken(uuid);
+                    System.out.println("登录用户id---------->" + get(uuid));
+                } else {
+                    usersVo.setToken(exist);
+                    System.out.println("登录用户id---------->" + get(exist));
+                }
                 System.out.println("目前在线用户数---------->" + count());
-                usersVo.setToken(uuid);
-                usersVo.setExpire(getExpire(uuid));
                 return EliApiResult.success(EliApiCode.LOGIN_SUCCESS.getMsg(), usersVo);
             } else {
                 return EliApiResult.fail(EliApiCode.USER_ACCOUNT_ERROR);
