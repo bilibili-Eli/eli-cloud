@@ -1,0 +1,13 @@
+server:
+  port: 3000
+
+spring:
+  application:
+    name: client-zuul
+
+zuul:
+  routes:
+    client-system:
+      path: /eli/**
+      serciceId: client-system
+
