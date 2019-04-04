@@ -24,13 +24,13 @@ public class UsersServiceImpl extends BaseRedisServiceImpl<String> implements Us
     @Override
     public void insert(UsersVo usersVo, HttpServletRequest request) {
         usersVo.setUserId(UUID.randomUUID().toString());
-        usersVo.iniInsert(request);
+        usersVo.iniInsert(request, hashOperations);
         usersMapper.insert(usersVo);
     }
 
     @Override
     public void update(UsersVo usersVo, HttpServletRequest request) {
-        usersVo.iniModify(request);
+        usersVo.iniModify(request, hashOperations);
         usersMapper.updateByPrimaryKeySelective(usersVo);
     }
 

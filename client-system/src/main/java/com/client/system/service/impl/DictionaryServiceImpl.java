@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class DictionaryServiceImpl implements DictionaryService {
+public class DictionaryServiceImpl extends BaseRedisServiceImpl<String> implements DictionaryService {
 
     @Resource
     private DictionaryMapper dictionaryMapper;
@@ -21,13 +21,13 @@ public class DictionaryServiceImpl implements DictionaryService {
     @Override
     public void insert(DictionaryVo dictionaryVo, HttpServletRequest request) {
         dictionaryVo.setDictionaryId(UUID.randomUUID().toString());
-        dictionaryVo.iniInsert(request);
+        dictionaryVo.iniInsert(request, hashOperations);
         dictionaryMapper.insertSelective(dictionaryVo);
     }
 
     @Override
     public void update(DictionaryVo dictionaryVo, HttpServletRequest request) {
-        dictionaryVo.iniModify(request);
+        dictionaryVo.iniModify(request, hashOperations);
         dictionaryMapper.updateByPrimaryKeySelective(dictionaryVo);
     }
 
