@@ -5,7 +5,7 @@ import com.client.system.mapper.UsersMapper;
 import com.client.system.model.EliApiResult;
 import com.client.system.model.Users;
 import com.client.system.service.UsersService;
-import com.client.system.util.EliApiCode;
+import com.client.system.enums.EliApiCode;
 import com.client.system.vo.UsersVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;

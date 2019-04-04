@@ -4,7 +4,7 @@ import com.client.system.exception.EliException;
 import com.client.system.model.Dictionary;
 import com.client.system.model.EliApiResult;
 import com.client.system.service.DictionaryService;
-import com.client.system.util.EliApiCode;
+import com.client.system.enums.EliApiCode;
 import com.client.system.vo.DictionaryVo;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

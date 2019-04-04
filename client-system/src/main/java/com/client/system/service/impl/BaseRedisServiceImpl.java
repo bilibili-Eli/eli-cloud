@@ -42,7 +42,7 @@ public abstract class BaseRedisServiceImpl<T> {
     public void put(String key, T model, long expire) {
         hashOperations.put(getRedisKey(), key, model);
         if (expire > 0L) {
-            redisTemplate.expire(getRedisKey(), expire, TimeUnit.SECONDS);
+            redisTemplate.expire(key, expire, TimeUnit.SECONDS);
         }
     }
 
@@ -108,6 +108,16 @@ public abstract class BaseRedisServiceImpl<T> {
     public void empty() {
         Set<String> set = hashOperations.keys(getRedisKey());
         set.forEach(key -> hashOperations.delete(getRedisKey(), key));
+    }
+
+    /**
+     * 根据key 获取过期时间
+     *
+     * @param key 键 不能为null
+     * @return 时间(秒) 返回0代表为永久有效
+     */
+    public Long getExpire(String key) {
+        return redisTemplate.getExpire(key, TimeUnit.SECONDS);
     }
 
     /**

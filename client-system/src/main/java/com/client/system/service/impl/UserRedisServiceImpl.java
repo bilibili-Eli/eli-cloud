@@ -4,7 +4,7 @@ import com.client.system.exception.EliException;
 import com.client.system.mapper.UsersMapper;
 import com.client.system.model.Users;
 import com.client.system.service.UserRedisService;
-import com.client.system.util.EliApiCode;
+import com.client.system.enums.EliApiCode;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

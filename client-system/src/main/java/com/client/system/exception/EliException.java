@@ -1,6 +1,6 @@
 package com.client.system.exception;
 
-import com.client.system.util.EliApiCode;
+import com.client.system.enums.EliApiCode;
 
 public class EliException extends Exception {
     private Integer code;

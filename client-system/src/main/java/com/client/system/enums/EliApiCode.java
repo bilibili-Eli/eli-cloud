@@ -1,4 +1,4 @@
-package com.client.system.util;
+package com.client.system.enums;
 
 public enum EliApiCode {
     SUCCESS(0, "操作成功"),
