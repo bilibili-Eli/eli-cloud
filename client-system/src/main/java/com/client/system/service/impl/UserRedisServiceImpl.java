@@ -21,7 +21,7 @@ public class UserRedisServiceImpl extends BaseRedisServiceImpl<String> implement
         try {
             List<String> userIdList = getAll();
             if (userIdList == null || userIdList.size() == 0) return null;
-            else return usersMapper.selectActivity(getAll());
+            else return usersMapper.selectActivity(userIdList);
         } catch (Exception e) {
             throw new EliException(EliApiCode.SYSTEM_INNER_ERROR);
         }
