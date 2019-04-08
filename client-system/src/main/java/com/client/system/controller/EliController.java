@@ -29,7 +29,7 @@ public class EliController<Service, Model, Vo extends Model> {
      * Controller工具类
      */
     @Resource(name = "eliControllerUtil")
-    private EliControllerUtil<Service, Model> util;
+    protected EliControllerUtil<Service, Model> util;
 
     /**
      * 查询全部

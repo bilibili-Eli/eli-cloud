@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.client.system.mapper.MenusMapper">
-    <resultMap id="MenusVo" type="com.client.system.vo.MenusVo">
-        <id column="p_menu_id" property="menuId"/>
+    <resultMap id="menusByUser" type="com.client.system.vo.MenusVo">
         <result column="p_path" property="path"/>
         <result column="p_redirect" property="redirect"/>
         <result column="p_name" property="name"/>
@@ -12,7 +11,6 @@
             <result column="p_icon" property="icon"/>
         </association>
         <collection property="children" ofType="com.client.system.vo.MenusVo">
-            <id column="menu_id" property="menuId"/>
             <result column="path" property="path"/>
             <result column="redirect" property="redirect"/>
             <result column="name" property="name"/>
@@ -23,15 +21,47 @@
             </association>
         </collection>
     </resultMap>
-    <select id="selectAll" resultMap="MenusVo">
-        SELECT m1.menu_id   AS p_menu_id,
-               m1.path      AS p_path,
+    <resultMap id="menusVo" type="com.client.system.vo.MenusVo">
+        <result column="p_menu_id" property="menuId"/>
+        <result column="p_parent_id" property="parentId"/>
+        <result column="p_is_parent" property="isParent"/>
+        <result column="p_path" property="path"/>
+        <result column="p_title" property="title"/>
+        <result column="p_icon" property="icon"/>
+        <result column="p_redirect" property="redirect"/>
+        <result column="p_name" property="name"/>
+        <result column="p_component" property="component"/>
+        <result column="p_create_on" property="createOn" javaType="date"/>
+        <result column="p_modify_on" property="modifyOn" javaType="date"/>
+        <result column="p_create_by" property="createBy"/>
+        <result column="p_modify_by" property="modifyBy"/>
+        <result column="p_status" property="status"/>
+        <result column="p_owner" property="owner"/>
+        <collection property="children" ofType="com.client.system.vo.MenusVo">
+            <result column="menu_id" property="menuId"/>
+            <result column="parent_id" property="parentId"/>
+            <result column="is_parent" property="isParent"/>
+            <result column="path" property="path"/>
+            <result column="redirect" property="redirect"/>
+            <result column="name" property="name"/>
+            <result column="title" property="title"/>
+            <result column="icon" property="icon"/>
+            <result column="component" property="component"/>
+            <result column="create_on" property="createOn" javaType="date"/>
+            <result column="modify_on" property="modifyOn" javaType="date"/>
+            <result column="create_by" property="createBy"/>
+            <result column="modify_by" property="modifyBy"/>
+            <result column="status" property="status"/>
+            <result column="owner" property="owner"/>
+        </collection>
+    </resultMap>
+    <select id="selectMenus" resultMap="menusByUser" parameterType="string">
+        SELECT m1.path      AS p_path,
                m1.redirect  AS p_redirect,
                m1.`name`    AS p_name,
                m1.component AS p_component,
                m1.title     AS p_title,
                m1.icon      AS p_icon,
-               m2.menu_id   AS menu_id,
                m2.path      AS path,
                m2.redirect  AS redirect,
                m2.`name`    AS name,
@@ -39,9 +69,46 @@
                m2.title     AS title,
                m2.icon      AS icon
         FROM test_db.menus m1
-                 LEFT JOIN test_db.menus m2 ON m2.parent_id = m1.menu_id
+                 LEFT JOIN test_db.menus m2 ON m1.menu_id = m2.parent_id
         WHERE m1.is_parent = '0'
-          AND m2.`status` = '0'
+          AND (m2.`status` = '0' OR m2.`status` IS NULL)
+          AND m1.`status` = '0';
+    </select>
+    <select id="selectAll" resultMap="menusVo">
+        SELECT m1.menu_id   AS p_menu_id,
+               m1.parent_id AS p_parent_id,
+               m1.is_parent AS p_is_parent,
+               m1.path      AS p_path,
+               m1.redirect  AS p_redirect,
+               m1.`name`    AS p_name,
+               m1.component AS p_component,
+               m1.title     AS p_title,
+               m1.icon      AS p_icon,
+               m1.create_on AS p_create_on,
+               m1.create_by AS p_create_by,
+               m1.modify_on AS p_modify_on,
+               m1.modify_by AS p_modify_by,
+               m1.owner     AS p_owner,
+               m1.`status`  AS p_status,
+               m2.menu_id   AS menu_id,
+               m2.parent_id AS parent_id,
+               m2.is_parent AS is_parent,
+               m2.path      AS path,
+               m2.redirect  AS redirect,
+               m2.`name`    AS name,
+               m2.component AS component,
+               m2.title     AS title,
+               m2.icon      AS icon,
+               m2.create_on AS create_on,
+               m2.create_by AS create_by,
+               m2.modify_on AS modify_on,
+               m2.modify_by AS modify_by,
+               m2.owner     AS owner,
+               m2.`status`  AS status
+        FROM test_db.menus m1
+                 LEFT JOIN test_db.menus m2 ON m1.menu_id = m2.parent_id
+        WHERE m1.is_parent = '0'
+          AND (m2.`status` = '0' OR m2.`status` IS NULL)
           AND m1.`status` = '0';
     </select>
 </mapper>

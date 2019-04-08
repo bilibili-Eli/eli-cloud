@@ -50,7 +50,7 @@
         FROM test_db.dictionary d1
                  LEFT JOIN test_db.dictionary d2 ON d2.parent_id = d1.dictionary_id
         WHERE d1.parent_id IS NULL
-          AND d2.`status` = '0'
+          AND (d2.`status` = '0' OR d2.`status` IS NULL)
           AND d1.`status` = '0';
     </select>
     <select id="selectChildrenByName" resultMap="Dictionary" parameterType="com.client.system.model.Dictionary">

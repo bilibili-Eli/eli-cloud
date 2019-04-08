@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class MenusServiceImpl extends BaseRedisServiceImpl<String> implements MenusService {
@@ -21,6 +22,7 @@ public class MenusServiceImpl extends BaseRedisServiceImpl<String> implements Me
     @Override
     public void insert(MenusVo menusVo, HttpServletRequest request) throws EliException {
         try {
+            menusVo.setMenuId(UUID.randomUUID().toString());
             menusVo.iniInsert(request, hashOperations);
             menusMapper.insert(menusVo);
         } catch (Exception e) {
@@ -69,6 +71,15 @@ public class MenusServiceImpl extends BaseRedisServiceImpl<String> implements Me
     public List<Menus> select(Menus model, HttpServletRequest request) throws EliException {
         try {
             return menusMapper.select(model);
+        } catch (Exception e) {
+            throw new EliException(EliApiCode.SYSTEM_INNER_ERROR);
+        }
+    }
+
+    @Override
+    public List<Menus> selectByUser(Menus menus, HttpServletRequest request) throws EliException {
+        try {
+            return menusMapper.selectMenus(get(request.getHeader("user-token")));
         } catch (Exception e) {
             throw new EliException(EliApiCode.SYSTEM_INNER_ERROR);
         }
