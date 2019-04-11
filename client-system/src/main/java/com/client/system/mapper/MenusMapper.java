@@ -13,4 +13,6 @@ public interface MenusMapper extends Mapper<Menus> {
     List<Menus> selectAll();
 
     List<Menus> selectMenus(@Param(value = "userId") String userId);
+
+    List<Menus> selectChildAndParent(Menus menus);
 }

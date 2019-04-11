@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface MenusService extends EliService<Menus, MenusVo> {
     List<Menus> selectByUser(Menus menus, HttpServletRequest request) throws EliException;
+
+    List<Menus> selectChildAndParent(Menus menus, HttpServletRequest request) throws EliException;
 }

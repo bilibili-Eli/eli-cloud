@@ -84,4 +84,13 @@ public class MenusServiceImpl extends BaseRedisServiceImpl<String> implements Me
             throw new EliException(EliApiCode.SYSTEM_INNER_ERROR);
         }
     }
+
+    @Override
+    public List<Menus> selectChildAndParent(Menus menus, HttpServletRequest request) throws EliException {
+        try {
+            return menusMapper.selectChildAndParent(menus);
+        } catch (Exception e) {
+            throw new EliException(EliApiCode.SYSTEM_INNER_ERROR);
+        }
+    }
 }

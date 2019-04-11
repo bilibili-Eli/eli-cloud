@@ -13,8 +13,27 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("menus")
 public class MenusController extends EliController<MenusService, Menus, MenusVo> {
+    /**
+     * 根据用户所在角色查询（还在开发）
+     *
+     * @param menus   条件
+     * @param request request域
+     * @return 用户权限所属目录
+     */
     @RequestMapping("selectByUser")
     public EliApiResult selectByUser(@RequestBody Menus menus, HttpServletRequest request) {
         return util.invoke("selectByUser", impl, menus, request);
+    }
+
+    /**
+     * 查询父类以及对应子类
+     *
+     * @param menus   条件
+     * @param request request域
+     * @return 子父集合
+     */
+    @RequestMapping("selectChildAndParent")
+    public EliApiResult selectChildAndParent(@RequestBody Menus menus, HttpServletRequest request) {
+        return util.invoke("selectChildAndParent", impl, menus, request);
     }
 }
