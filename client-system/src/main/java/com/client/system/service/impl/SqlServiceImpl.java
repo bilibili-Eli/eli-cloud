@@ -1,8 +1,11 @@
 package com.client.system.service.impl;
 
+import com.client.system.enums.EliApiCode;
+import com.client.system.exception.EliException;
 import com.client.system.mapper.SqlMapper;
 import com.client.system.model.Sql;
 import com.client.system.service.SqlService;
+import com.client.system.vo.SqlVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,9 +18,39 @@ public class SqlServiceImpl implements SqlService {
     @Resource
     private SqlMapper sqlMapper;
 
+    @Override
+    public List<Map<String, Object>> select(Sql sql, HttpServletRequest request) throws EliException {
+        try {
+            return sqlMapper.select(sql);
+        } catch (Exception e) {
+            throw new EliException(EliApiCode.SQL_EXCEPTION);
+        }
+    }
 
     @Override
-    public List<Map<String, Object>> select(Sql sql, HttpServletRequest request) {
-        return sqlMapper.select(sql);
+    public void update(SqlVo sqlVo, HttpServletRequest request) throws EliException {
+        try {
+            sqlMapper.update(sqlVo);
+        } catch (Exception e) {
+            throw new EliException(EliApiCode.SQL_EXCEPTION);
+        }
+    }
+
+    @Override
+    public void insert(SqlVo sqlVo, HttpServletRequest request) throws EliException {
+        try {
+            sqlMapper.insert(sqlVo);
+        } catch (Exception e) {
+            throw new EliException(EliApiCode.SQL_EXCEPTION);
+        }
+    }
+
+    @Override
+    public void delete(Sql sql, HttpServletRequest request) throws EliException {
+        try {
+            sqlMapper.delete(sql);
+        } catch (Exception e) {
+            throw new EliException(EliApiCode.SQL_EXCEPTION);
+        }
     }
 }

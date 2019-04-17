@@ -1,5 +1,7 @@
 package com.client.system.util;
 
+import com.client.system.enums.EliApiCode;
+import com.client.system.exception.EliException;
 import com.client.system.model.EliApiResult;
 import org.springframework.stereotype.Component;
 
@@ -50,8 +52,12 @@ public class EliControllerUtil<Impl, Model> {
             if (data != null) return EliApiResult.success(data);
             else return EliApiResult.success();
         } catch (Exception e) {
-            e.printStackTrace();
-            return EliApiResult.fail(e.getMessage());
+            Throwable cause = e.getCause();
+            if (cause instanceof EliException) {
+                return EliApiResult.fail(cause.getMessage());
+            } else {
+                return EliApiResult.fail(EliApiCode.SYSTEM_INNER_ERROR);
+            }
         }
     }
 }
