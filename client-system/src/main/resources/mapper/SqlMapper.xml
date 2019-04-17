@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.client.system.mapper.SqlMapper">
+    <resultMap id="schemataVo" type="com.client.system.vo.SchemataVo">
+        <result property="schemaName" column="schemaName"/>
+        <collection property="children" ofType="com.client.system.model.Schemata">
+            <result column="tableName" property="schemaName"/>
+        </collection>
+    </resultMap>
     <insert id="insert" parameterType="com.client.system.model.Sql">
         ${sql}
     </insert>
@@ -12,5 +18,11 @@
     </delete>
     <select id="select" resultType="java.util.LinkedHashMap" parameterType="com.client.system.model.Sql">
         ${sql}
+    </select>
+    <select id="selectSchemata" resultMap="schemataVo">
+        select s.schema_name as schemaName,
+               t.table_name  as tableName
+        from information_schema.schemata s
+                 left join information_schema.`tables` t on s.schema_name = t.table_schema
     </select>
 </mapper>

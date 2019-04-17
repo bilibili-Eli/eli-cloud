@@ -3,8 +3,10 @@ package com.client.system.service.impl;
 import com.client.system.enums.EliApiCode;
 import com.client.system.exception.EliException;
 import com.client.system.mapper.SqlMapper;
+import com.client.system.model.Schemata;
 import com.client.system.model.Sql;
 import com.client.system.service.SqlService;
+import com.client.system.vo.SchemataVo;
 import com.client.system.vo.SqlVo;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +51,15 @@ public class SqlServiceImpl implements SqlService {
     public void delete(Sql sql, HttpServletRequest request) throws EliException {
         try {
             sqlMapper.delete(sql);
+        } catch (Exception e) {
+            throw new EliException(EliApiCode.SQL_EXCEPTION);
+        }
+    }
+
+    @Override
+    public List<SchemataVo> selectSchemata(Sql sql, HttpServletRequest request) throws EliException {
+        try {
+            return sqlMapper.selectSchemata();
         } catch (Exception e) {
             throw new EliException(EliApiCode.SQL_EXCEPTION);
         }

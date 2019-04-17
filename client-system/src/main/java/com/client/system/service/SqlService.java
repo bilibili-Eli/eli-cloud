@@ -2,6 +2,7 @@ package com.client.system.service;
 
 import com.client.system.exception.EliException;
 import com.client.system.model.Sql;
+import com.client.system.vo.SchemataVo;
 import com.client.system.vo.SqlVo;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,4 +17,6 @@ public interface SqlService {
     void insert(SqlVo sqlVo, HttpServletRequest request) throws EliException;
 
     void delete(Sql sql, HttpServletRequest request) throws EliException;
+
+    List<SchemataVo> selectSchemata(Sql sql, HttpServletRequest request) throws EliException;
 }
