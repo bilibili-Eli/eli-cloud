@@ -66,7 +66,8 @@ public class EliApiResult {
 
     public void setCode(EliApiCode eliApiCode) {
         this.code = eliApiCode.getCode();
-        this.msg = eliApiCode.getCode() + "：" + eliApiCode.getMsg();
+        if (this.code == 0) this.msg = eliApiCode.getMsg();
+        else this.msg = eliApiCode.getCode() + "：" + eliApiCode.getMsg();
     }
 
     public static EliApiResult fail(String msg) {
