@@ -18,4 +18,9 @@ public class SqlController extends EliController<SqlService, Sql, SqlVo> {
     public EliApiResult selectSchemata(@RequestBody(required = false) Sql sql, HttpServletRequest request) {
         return util.invoke("selectSchemata", impl, sql, request);
     }
+
+    @RequestMapping("selectColumnByTable")
+    public EliApiResult selectColumnByTable(@RequestBody(required = false) SqlVo sqlVo, HttpServletRequest request) {
+        return util.invoke("selectColumnByTable", impl, sqlVo, request);
+    }
 }

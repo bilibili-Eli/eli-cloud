@@ -8,6 +8,7 @@ import com.client.system.model.Sql;
 import com.client.system.service.SqlService;
 import com.client.system.vo.SchemataVo;
 import com.client.system.vo.SqlVo;
+import com.client.system.vo.TableVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -60,6 +61,15 @@ public class SqlServiceImpl implements SqlService {
     public List<SchemataVo> selectSchemata(Sql sql, HttpServletRequest request) throws EliException {
         try {
             return sqlMapper.selectSchemata();
+        } catch (Exception e) {
+            throw new EliException(EliApiCode.SQL_EXCEPTION);
+        }
+    }
+
+    @Override
+    public TableVo selectColumnByTable(SqlVo sqlVo, HttpServletRequest request) throws EliException {
+        try {
+            return sqlMapper.selectColumnByTable(sqlVo);
         } catch (Exception e) {
             throw new EliException(EliApiCode.SQL_EXCEPTION);
         }

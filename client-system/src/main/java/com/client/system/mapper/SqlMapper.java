@@ -2,6 +2,8 @@ package com.client.system.mapper;
 
 import com.client.system.model.Sql;
 import com.client.system.vo.SchemataVo;
+import com.client.system.vo.SqlVo;
+import com.client.system.vo.TableVo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,4 +20,6 @@ public interface SqlMapper {
     void delete(Sql sql);
 
     List<SchemataVo> selectSchemata();
+
+    TableVo selectColumnByTable(SqlVo sqlVo);
 }
