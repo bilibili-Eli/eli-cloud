@@ -10,4 +10,18 @@ zuul:
     client-system:
       path: /eli/**
       serciceId: client-system
+      strip-prefix: true
+  host:
+    connect-timeout-millis: 60000
 
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 600000
+
+ribbon:
+  ReadTimeout: 50000
+  ConnectTimeout: 50000
