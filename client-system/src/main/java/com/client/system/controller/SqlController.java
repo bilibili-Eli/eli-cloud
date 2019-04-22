@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("sql")
 @RestController
 public class SqlController extends EliController<SqlService, Sql, SqlVo> {
-
     @RequestMapping("selectSchemata")
     public EliApiResult selectSchemata(@RequestBody(required = false) Sql sql, HttpServletRequest request) {
         return util.invoke("selectSchemata", impl, sql, request);

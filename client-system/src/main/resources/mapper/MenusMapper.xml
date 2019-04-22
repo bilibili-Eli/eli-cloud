@@ -86,9 +86,8 @@
                m2.title     AS title,
                m2.icon      AS icon
         FROM test_db.menus m1
-                 LEFT JOIN test_db.menus m2 ON m1.menu_id = m2.parent_id
+                 LEFT JOIN test_db.menus m2 ON m1.menu_id = m2.parent_id AND m2.`status` = '0'
         WHERE m1.is_parent = '0'
-          AND (m2.`status` = '0' OR m2.`status` IS NULL)
           AND m1.`status` = '0';
     </select>
     <select id="selectAll" resultMap="menusVo">
@@ -123,9 +122,8 @@
                m2.owner     AS owner,
                m2.`status`  AS status
         FROM test_db.menus m1
-                 LEFT JOIN test_db.menus m2 ON m1.menu_id = m2.parent_id
+                 LEFT JOIN test_db.menus m2 ON m1.menu_id = m2.parent_id AND m2.`status` = '0'
         WHERE m1.is_parent = '0'
-          AND (m2.`status` = '0' OR m2.`status` IS NULL)
           AND m1.`status` = '0';
     </select>
     <select id="selectChildAndParent" resultMap="menus" parameterType="com.client.system.model.Menus">
