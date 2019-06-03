@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 @RequestMapping("menus")
@@ -35,5 +36,23 @@ public class MenusController extends EliController<MenusService, Menus, MenusVo>
     @RequestMapping("selectChildAndParent")
     public EliApiResult selectChildAndParent(@RequestBody Menus menus, HttpServletRequest request) {
         return util.invoke("selectChildAndParent", impl, menus, request);
+    }
+
+    @RequestMapping("lalala")
+    public Map<String, Object> lalala(@RequestBody InnerParams innerParams) {
+        System.out.println(innerParams);
+        return null;
+    }
+}
+
+class InnerParams{
+    private String test;
+
+    public String getTest() {
+        return test;
+    }
+
+    public void setTest(String test) {
+        this.test = test;
     }
 }
