@@ -5,6 +5,11 @@ spring:
   application:
     name: client-zuul
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7070/eureka/
+
 zuul:
   routes:
     client-system:
