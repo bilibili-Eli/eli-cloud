@@ -12,6 +12,7 @@
     <artifactId>zuul</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>zuul</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -56,6 +57,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.cloud.zuul.ZuulApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
